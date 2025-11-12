@@ -2,6 +2,7 @@ const hoursBlock = document.querySelector('.timer__hours')
 const minutesBlock = document.querySelector('.timer__minutes')
 const secondsBlock = document.querySelector('.timer__seconds')
 const daysBlock = document.querySelector('.timer__days')
+const digitalItem = document.querySelectorAll('.timer__item')
 
 let interval
 
@@ -24,7 +25,7 @@ const numWords = (value, words) => {
 
 const updateTimer = () => {
 	const date = new Date()
-	const dateDeadline = new Date('13 november 2025 11:01').getTime()
+	const dateDeadline = new Date('11 november 2025 11:01').getTime()
 	const timeRemaining = (dateDeadline - date) / 1000
 
 	const days = Math.floor(timeRemaining / 60 / 60 / 24)
@@ -63,8 +64,12 @@ const updateTimer = () => {
 		'дней',
 	])
 
-	if (timeRemaining < 0) {
+	if (timeRemaining <= 0) {
 		if (interval) {
+			digitalItem.forEach((e) => {
+				e.style.color = 'red'
+			})
+
 			clearInterval(interval)
 			daysBlock.textContent = '00'
 			hoursBlock.textContent = '00'
